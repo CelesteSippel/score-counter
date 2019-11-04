@@ -63,6 +63,14 @@ const updateTeamTwoName = () => {
   document.querySelector('h2.team-2-name').textContent = newName
 }
 
+const updatePeriodTracker = () => {
+  console.log('updating period tracker')
+  // get the current value of the text
+  const newPeriod = document.querySelector('.period-input').value
+  // update the period in HTML
+  document.querySelector('p.period-tracker').textContent = newPeriod
+}
+
 // Find the buttons, when you're clicked, do this thing
 document
   .querySelector('.team-1-add-1-button')
@@ -91,5 +99,9 @@ document
 document
   .querySelector('.update-team-2-name')
   .addEventListener('click', updateTeamTwoName)
+// Fine the buttons, when you're clicked, do this thing
+document
+  .querySelector('.update-period-tracker')
+  .addEventListener('click', updatePeriodTracker)
 
 document.addEventListener('DOMContentLoaded', main)
