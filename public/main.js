@@ -103,11 +103,13 @@ const updatePeriodTracker = () => {
   document.querySelector('p.period-tracker').textContent = newPeriod
 }
 
+let countdownTimer
+
 const startTimer = (duration, display) => {
-  let timer = duration,
-    minutes,
-    seconds
-  setInterval(() => {
+  let timer = duration
+  let minutes
+  let seconds
+  countdownTimer = setInterval(() => {
     minutes = parseInt(timer / 60, 10)
     seconds = parseInt(timer % 60, 10)
 
@@ -122,12 +124,23 @@ const startTimer = (duration, display) => {
   }, 1000)
 }
 
-// Fine the buttons, when you're clicked, do this thing
-window.onload = function() {
-  var thirtyMinutes = 60 * 30,
-    display = document.querySelector('#time')
-  startTimer(thirtyMinutes, display)
+const stopTimer = () => {
+  clearInterval(countdownTimer)
+  countdownTimer = null
 }
+
+// Fine the buttons, when you're clicked, do this thing
+const triggerTimer = () => {
+  if (countdownTimer) {
+    stopTimer()
+  } else {
+    const thirtyMinutes = 60 * 30
+    const display = document.querySelector('#time')
+    startTimer(thirtyMinutes, display)
+  }
+}
+// Find the buttons, when you're clicked, do this thing
+document.querySelector('#time').addEventListener('click', triggerTimer)
 
 // Find the buttons, when you're clicked, do this thing
 document
