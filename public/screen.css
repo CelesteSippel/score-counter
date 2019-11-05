@@ -21,6 +21,16 @@ html {
   height: 100%;
 }
 
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 img {
   justify-content: center;
   padding-top: 2rem;
@@ -54,6 +64,11 @@ button {
 .update-period-tracker {
   width: 60px;
   margin-left: 9px;
+}
+
+.reset-game b {
+  width: 80px;
+  margin-top: 5rem;
 }
 .teams {
   display: flex;

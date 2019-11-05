@@ -2,50 +2,82 @@ const main = () => {
   console.log('hello - world')
 }
 
-let counter = 0
+let counterOne = 0
+let counterTwo = 0
 
-const addOneToTeamOneScore = () => {
-  console.log('add 1 to a counter')
-  //  get current value of the counter
-  //  add 1 to counter
-  counter = counter + 1
-  console.log(counter)
-  //  update the HTML
-  //  hey DOM, find the p.team-1-score, updates the content
-  document.querySelector('p.team-1-score').textContent = counter
+const addOneTeamOne = () => {
+  if (counterOne < 21) {
+    // add 1 to counter
+    counterOne = counterOne + 1
+    // update HTML
+    document.querySelector('p.team-1-score').textContent = counterOne
+  } else {
+    console.log('Team 1 wins!')
+  }
+  winnerWinner()
 }
 
-const subtractOneToTeamOneScore = () => {
-  console.log('subtract 1 from a counter')
-  //  get current value of the counter
-  //  subtract 1 from counter
-  counter = counter - 1
-  console.log(counter)
-  //  update the HTML
-  //  hey DOM, find the p.team-1-score, updates the content
-  document.querySelector('p.team-1-score').textContent = counter
+const subtractOneTeamOne = () => {
+  if (counterOne >= 1) {
+    // subtract 1 from counter
+    counterOne = counterOne - 1
+    // update HTML
+    document.querySelector('p.team-1-score').textContent = counterOne
+  } else {
+    console.log('No negative numbers, Team 1!')
+  }
 }
 
-const addOneToTeamTwoScore = () => {
-  console.log('add 1 to a counter')
-  //  get current value of the counter
-  //  add 1 to counter
-  counter = counter + 1
-  console.log(counter)
-  //  update the HTML
-  //  hey DOM, find the p.team-2-score, updates the content
-  document.querySelector('p.team-2-score').textContent = counter
+const addOneTeamTwo = () => {
+  if (counterTwo < 21) {
+    // add 1 to counter
+    counterTwo = counterTwo + 1
+    // update HTML
+    document.querySelector('p.team-2-score').textContent = counterTwo
+  } else {
+    console.log('Team 2 wins!')
+  }
+  winnerWinner()
 }
 
-const subtractOneToTeamTwoScore = () => {
-  console.log('subtract 1 from a counter')
-  //  get current value of the counter
-  //  subtract 1 from counter
-  counter = counter - 1
-  console.log(counter)
-  //  update the HTML
-  //  hey DOM, find the p.team-2-score, updates the content
-  document.querySelector('p.team-2-score').textContent = counter
+const subtractOneTeamTwo = () => {
+  if (counterTwo >= 1) {
+    // subtract 1 from counter
+    counterTwo = counterTwo - 1
+    // update HTML
+    document.querySelector('p.team-2-score').textContent = counterTwo
+  } else {
+    console.log('No negative numbers, Team 2!')
+  }
+}
+
+const winnerWinner = () => {
+  if (counterOne === 21) {
+    document.querySelector('.team-1-add-1-button').disabled = true
+    document.querySelector('.team-1-subtract-1-button').disabled = true
+    document.querySelector('.team-2-add-1-button').disabled = true
+    document.querySelector('.team-2-subtract-1-button').disabled = true
+    document.querySelector('.team-1-name').classList.add('blink_me')
+  } else if (counterTwo === 21) {
+    document.querySelector('.team-1-add-1-button').disabled = true
+    document.querySelector('.team-1-subtract-1-button').disabled = true
+    document.querySelector('.team-2-add-1-button').disabled = true
+    document.querySelector('.team-2-subtract-1-button').disabled = true
+    document.querySelector('.team-2-name').classList.add('blink_me')
+  }
+}
+
+const resetGame = () => {
+  counterOne = 0
+  counterTwo = 0
+  document.querySelector('.team-1-add-1-button').disabled = false
+  document.querySelector('.team-1-subtract-1-button').disabled = false
+  document.querySelector('.team-2-add-1-button').disabled = false
+  document.querySelector('.team-2-subtract-1-button').disabled = false
+  document.querySelector('.team-1-name').classList.remove('blink_me')
+  document.querySelector('.team-2-name').classList.remove('blink_me')
+  document.querySelector('p.team-1-score').textContent = counterTwo
+  document.querySelector('p.team-2-score').textContent = counterTwo
 }
 
 const updateTeamOneName = () => {
@@ -71,11 +103,11 @@ const updatePeriodTracker = () => {
   document.querySelector('p.period-tracker').textContent = newPeriod
 }
 
-function startTimer(duration, display) {
-  var timer = duration,
+const startTimer = (duration, display) => {
+  let timer = duration,
     minutes,
     seconds
-  setInterval(function() {
+  setInterval(() => {
     minutes = parseInt(timer / 60, 10)
     seconds = parseInt(timer % 60, 10)
 
@@ -90,6 +122,7 @@ function startTimer(duration, display) {
   }, 1000)
 }
 
+// Fine the buttons, when you're clicked, do this thing
 window.onload = function() {
   var thirtyMinutes = 60 * 30,
     display = document.querySelector('#time')
@@ -99,22 +132,22 @@ window.onload = function() {
 // Find the buttons, when you're clicked, do this thing
 document
   .querySelector('.team-1-add-1-button')
-  .addEventListener('click', addOneToTeamOneScore)
+  .addEventListener('click', addOneTeamOne)
 
 // Find the buttons, when you're clicked, do this thing
 document
   .querySelector('.team-1-subtract-1-button')
-  .addEventListener('click', subtractOneToTeamOneScore)
+  .addEventListener('click', subtractOneTeamOne)
 
 // Find the buttons, when you're clicked, do this thing
 document
   .querySelector('.team-2-add-1-button')
-  .addEventListener('click', addOneToTeamTwoScore)
+  .addEventListener('click', addOneTeamTwo)
 
 // Find the buttons, when you're clicked, do this thing
 document
   .querySelector('.team-2-subtract-1-button')
-  .addEventListener('click', subtractOneToTeamTwoScore)
+  .addEventListener('click', subtractOneTeamTwo)
 
 // Find the buttons, when you're clicked, do this thing
 document
@@ -124,9 +157,14 @@ document
 document
   .querySelector('.update-team-2-name')
   .addEventListener('click', updateTeamTwoName)
-// Fine the buttons, when you're clicked, do this thing
+// Fined the buttons, when you're clicked, do this thing
 document
   .querySelector('.update-period-tracker')
   .addEventListener('click', updatePeriodTracker)
 
-document.addEventListener('DOMContentLoaded', main)
+// Find the buttons, when you're clicked, do this thing
+document
+  .querySelector('.game-reset')
+  .addEventListener('click', resetGame)
+
+  .addEventListener('DOMContentLoaded', main)
